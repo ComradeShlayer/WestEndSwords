@@ -6,8 +6,10 @@
  */
 
 import React from 'react';
+import { AppRegistry } from 'react-native';
 import type {PropsWithChildren} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { PaperProvider } from 'react-native-paper';
 import {
   SafeAreaView,
   ScrollView,
@@ -64,6 +66,7 @@ function App(): JSX.Element {
   };
 
   return (
+    <PaperProvider>
     <NavigationContainer>
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -95,6 +98,7 @@ function App(): JSX.Element {
       </ScrollView>
     </SafeAreaView>
     </NavigationContainer>
+    </PaperProvider>
   );
 }
 
