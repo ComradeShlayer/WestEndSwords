@@ -30,14 +30,13 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import HomePage from './pages/HomeScreen';
+
+
 function HomeScreen({navigation}) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
+      <HomePage/>
     </View>
   );
 }
@@ -52,36 +51,6 @@ function DetailsScreen({navigation}) {
 
 const Stack = createNativeStackNavigator();
 
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
-
-// function Section({children, title}: SectionProps): JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
-
 function App(){
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -93,29 +62,6 @@ function App(){
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      // <ScrollView
-      //   contentInsetAdjustmentBehavior="automatic"
-      //   style={backgroundStyle}>
-      //   <Header />
-      //   <View
-      //     style={{
-      //       backgroundColor: isDarkMode ? Colors.black : Colors.white,
-      //     }}>
-      //     <Section title="Step One">
-      //       Jerry <Text style={styles.highlight}>App.tsx</Text> bro
-      //     </Section>
-      //     <Section title="See Your Changes">
-      //       <ReloadInstructions />
-      //     </Section>
-      //     <Section title="Debug">
-      //       <DebugInstructions />
-      //     </Section>
-      //     <Section title="Learn More">
-      //       Read the docs to discover what to do next:
-      //     </Section>
-      //     <LearnMoreLinks />
-      //   </View>
-      // </ScrollView>
     
   return (
       <NavigationContainer>
