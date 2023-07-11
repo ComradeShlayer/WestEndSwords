@@ -16,6 +16,10 @@ const HomeScreen = () => {
   const stopwatchRef = React.useRef(null);
   const [timer, setTimer] = React.useState("stopped");
   const [finished, setFinish] = React.useState(false);
+  const [leftScore, setLeft] = React.useState(0);
+  const [rightScore, setRight] = React.useState(0);
+  const [timerLength, setLength] = React.useState(5000);
+
 
   function endTimer(){
     setFinish(true);
@@ -40,6 +44,9 @@ const HomeScreen = () => {
     }
   }
 
+  function timerSet(length) {
+    setLength(length);
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -51,7 +58,7 @@ const HomeScreen = () => {
         <StopwatchTimer
             ref={stopwatchRef}
             containerStyle={styles.stopWatchContainer}
-            initialTimeInMs={180000}
+            initialTimeInMs={timerLength}//180000
             digitStyle={Platform.select({
                 ios: {
                 width: 32,
@@ -73,6 +80,24 @@ const HomeScreen = () => {
             />
         </Pressable>
         <View style={styles.buttonsContainer}>
+          <IconButton
+            icon="refresh"
+            mode="contained"
+            size={32}
+            onPress={() => stopwatchRef.current?.reset()}
+          />
+          <IconButton
+            icon="clock-time-three"
+            mode="contained"
+            size={32}
+            onPress={() => timerSet(180000)}
+          />
+          <IconButton
+            icon="clock-time-one"
+            mode="contained"
+            size={32}
+            onPress={() => timerSet(60000)}
+          />
           {/* <IconButton
             icon="play"
             mode="contained"
@@ -85,12 +110,12 @@ const HomeScreen = () => {
             size={32}
             onPress={() => stopwatchRef.current?.pause()}
           /> */}
-          <IconButton
+          {/* <IconButton
             icon="refresh"
             mode="contained"
             size={32}
             onPress={() => stopwatchRef.current?.reset()}
-          />
+          /> */}
         </View>
       {/* <Text>Home Screen</Text>
       <Button
