@@ -65,14 +65,16 @@ function App(){
       />
     
   return (
+    <PaperProvider>
       <NavigationContainer>
-        <PaperProvider>
+        
         <Stack.Navigator initialRouteName='Home' options={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }}/>
         <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
-        </PaperProvider>
+      
       </NavigationContainer>
+      </PaperProvider>
   );
 }
 
