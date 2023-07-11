@@ -17,6 +17,10 @@ const HomeScreen = () => {
   const [timer, setTimer] = React.useState("stopped");
   const [finished, setFinish] = React.useState(false);
 
+  function endTimer(){
+    setFinish(true);
+  }
+
   function timerFinished(){
     if(finished){
         stopwatchRef.current?.reset()
@@ -25,7 +29,7 @@ const HomeScreen = () => {
   }
 
   function timerAction() {
-    timerFinished();
+    // timerFinished();
     if(timer == "stopped"){
         setTimer("running")
         stopwatchRef.current?.play()
@@ -62,7 +66,7 @@ const HomeScreen = () => {
             })}
             textCharStyle={styles.stopWatchChar}
             trailingZeros={0}
-            onFinish={setFinish(true)}
+            onFinish={() => endTimer()}
             //   onPress={() => timerAction()}
             // Uncomment the below line to use it in timer mode
             // initialTimeInMs={30 * 1000}
