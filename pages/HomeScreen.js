@@ -1,8 +1,8 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from 'react';
-import { View, Text, SafeAreaView, Button, StyleSheet, Image, Pressable} from 'react-native';
-import { IconButton, Provider, Colors} from 'react-native-paper';
+import { View, Text, SafeAreaView, StyleSheet, Image, Pressable} from 'react-native';
+import { IconButton, Provider, Colors, Button, } from 'react-native-paper';
 // import { TextInput } from 'react-native-gesture-handler';
 import GoToButton from '../components/GoToButton'
 import StopwatchTimer, {
@@ -48,6 +48,15 @@ const HomeScreen = () => {
     }
   }
  
+  function double(){
+    if(rightScore >= 14 || leftScore >= 14) {}
+    else{
+      setRight(rightScore + 1);
+      setLeft(leftScore + 1);
+      checkScores();
+    }
+  }
+
   function reset(){
     setWin(false);
     setLeft(0);
@@ -165,6 +174,9 @@ const HomeScreen = () => {
               size={32}
               onPress={() => changeLeft(1)}
           />
+          <View style={styles.topBuffer}>
+          <Button  mode="contained-tonal" buttonColor="#c9a940" textColor="#594d2e" onPress={() => double()}>Double</Button>
+          </View>
           <IconButton
             icon="arrow-up-drop-circle"
             mode="contained"
@@ -173,6 +185,7 @@ const HomeScreen = () => {
             size={32}
             onPress={() => changeRight(1)}
           />
+          
         </View>
         <View style={styles.scoreContainer}>
             <Text style={styles.scoreLeft}>{leftScore}</Text>
@@ -296,5 +309,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 1,
     color: '#00b03b',
+  },
+  topBuffer: {
+    paddingTop: 10,
   },
 })
