@@ -143,24 +143,6 @@ const HomeScreen = () => {
             size={32}
             onPress={() => timerSet(60000)}
           />
-          {/* <IconButton
-            icon="play"
-            mode="contained"
-            size={32}
-            onPress={() => timerAction()}
-          />
-          <IconButton
-            icon="pause"
-            mode="contained"
-            size={32}
-            onPress={() => stopwatchRef.current?.pause()}
-          /> */}
-          {/* <IconButton
-            icon="refresh"
-            mode="contained"
-            size={32}
-            onPress={() => stopwatchRef.current?.reset()}
-          /> */}
         </View>
         <View style={styles.scoreControlContainer}>
           <IconButton
