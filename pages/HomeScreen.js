@@ -2,7 +2,7 @@
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from 'react';
 import { View, Text, SafeAreaView, StyleSheet, Image, Pressable} from 'react-native';
-import { IconButton, Provider, Colors, Button, } from 'react-native-paper';
+import { IconButton, Provider, Button, Chip } from 'react-native-paper';
 // import { TextInput } from 'react-native-gesture-handler';
 import GoToButton from '../components/GoToButton'
 import StopwatchTimer, {
@@ -20,6 +20,14 @@ const HomeScreen = () => {
   const [rightScore, setRight] = React.useState(0);
   const [timerLength, setLength] = React.useState(180000);
   const [win, setWin] = React.useState(false);
+  const [dice, setDice] = React.useState("dice-6");
+  const [advantage, setAdvantage] = React.useState(false);
+  const [advantageLeft, setAdvLeft] = React.useState(false);
+  const [advantageRight, setAdvRight] = React.useState(false);
+  var left, right = false;
+  const [advantageIcon, setAdvantageIcon] = React.useState("flag");
+
+  // this.setState({showAdvantage: true}) 
 
   function checkScores(){
     if(timerLength == 60000 && (rightScore == 4 || leftScore == 4)){
@@ -62,6 +70,9 @@ const HomeScreen = () => {
     setLeft(0);
     setRight(0);
     setFinish(false);
+    setAdvantage(false);
+    setAdvRight(false);
+    setAdvLeft(false);
     stopwatchRef.current?.reset()
   }
 
@@ -92,6 +103,23 @@ const HomeScreen = () => {
   function timerSet(length) {
     setLength(length);
   }
+
+  function diceRoll() {
+    var flip = Math.floor(Math.random() * 2);
+    
+    if (flip){
+      setAdvRight(false)
+      setAdvLeft(true)
+      console.log("left")
+    }
+    else{
+      setAdvLeft(false)
+      setAdvRight(true)
+      console.log("right")
+    }
+    setAdvantage(true)
+  }
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -186,6 +214,17 @@ const HomeScreen = () => {
               onPress={() => changeLeft(-1)}
           />
           <IconButton
+              icon={dice}
+              mode="contained"
+              // animated={false}
+              iconColor="black"
+              backgroundColor="#c9a940"
+              // color="#144958"
+              // style={styles.red}
+              size={32}
+              onPress={() => diceRoll()}
+          />
+          <IconButton
             icon="arrow-down-drop-circle"
             mode="contained"
             iconColor="#00b03b"
@@ -194,11 +233,38 @@ const HomeScreen = () => {
             onPress={() => changeRight(-1)}
           />
         </View>
-      {/* <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      /> */}
+        
+        <View style={styles.advantageContainer}>
+          { advantage &&
+          <View style={styles.scoreControlContainer}>  
+          { advantageLeft &&
+            <IconButton
+            icon={advantageIcon}
+            mode="contained"
+            iconColor="#e80505"
+            backgroundColor="#ffd7d4"
+            size={32}
+            // onPress={() => changeRight(-1)}
+            />
+          }
+          { advantageRight &&
+          <View style={styles.advantageFlag}>
+            <IconButton
+            icon={advantageIcon}
+            mode="contained"
+            iconColor="#00b03b"
+            backgroundColor="#bdfcd5"
+            size={32}
+            // onPress={() => changeRight(-1)}
+            />
+            </View>
+          }
+          </View>
+          }
+          
+          
+        </View>
+      
     </View>
     </SafeAreaView>
   );
@@ -269,6 +335,19 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingHorizontal: 0,
   },
+  advantageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 30,
+    paddingHorizontal: 0,
+  },
+  advantageFlag: {
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // paddingTop: 30,
+    paddingHorizontal: 210,
+    // width: 20
+  },
   stopWatchChar: {
     fontSize: 48,
     fontWeight: 'bold',
@@ -295,4 +374,5 @@ const styles = StyleSheet.create({
   topBuffer: {
     paddingTop: 10,
   },
+  
 })
