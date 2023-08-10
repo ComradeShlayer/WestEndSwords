@@ -1,7 +1,7 @@
 // React Native Bottom Navigation
 // https://aboutreact.com/react-native-bottom-navigation/
 import * as React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, Image, Pressable} from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, Image, Pressable, Modal} from 'react-native';
 import { IconButton, Provider, Button, Chip } from 'react-native-paper';
 // import { TextInput } from 'react-native-gesture-handler';
 import GoToButton from '../components/GoToButton'
@@ -26,6 +26,7 @@ const HomeScreen = () => {
   const [advantageRight, setAdvRight] = React.useState(false);
   var left, right = false;
   const [advantageIcon, setAdvantageIcon] = React.useState("flag");
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   // this.setState({showAdvantage: true}) 
 
@@ -123,10 +124,32 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      </View>
       {/* <View style = {styles.container}>   
          </View> */}
          
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      
       <Pressable onPress={() => timerAction()}>
         <StopwatchTimer
             ref={stopwatchRef}
@@ -199,6 +222,9 @@ const HomeScreen = () => {
         </View>
         <View style={styles.scoreContainer}>
             <Text style={styles.scoreLeft}>{leftScore}</Text>
+            <View style={styles.topBuffer}>
+              <Button  mode="contained-tonal" buttonColor="#c9a940" textColor="#594d2e" onPress={() => setModalVisible(true)}>Cards</Button>
+            </View>
             <Text style={styles.scoreRight}>{rightScore}</Text>
           </View>
           <View style={styles.scoreControlContainer}>
@@ -374,5 +400,24 @@ const styles = StyleSheet.create({
   topBuffer: {
     paddingTop: 10,
   },
-  
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
 })
